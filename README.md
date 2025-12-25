@@ -1,180 +1,137 @@
-# LeetCode Solutions
+# LeetCode Solutions (Java)
 
-[![Repo Size](https://img.shields.io/badge/solutions-__PLACEHOLDER__-blue)]() [![Languages](https://img.shields.io/badge/languages-Python%2C%20C%2B%2B%2C%20Java-lightgrey)]() [![License](https://img.shields.io/badge/license-MIT-green)]()
+A personal repository for solving LeetCode problems in Java. This repo contains clean, well-documented Java solutions organized for easy lookup, testing, and reuse.
 
-A curated collection of LeetCode problem solutions organized for learning, reference, and interview preparation. This repository contains clean, well-documented solutions across multiple languages, with testing instructions, contribution guidelines, and conventions to keep everything consistent.
-
-## Table of Contents
-
-- [Repository Structure](#repository-structure)
+## Table of contents
+- [About](#about)
+- [Repository structure](#repository-structure)
 - [Conventions](#conventions)
-- [How to Run / Test](#how-to-runtest)
-- [How to Add a Solution](#how-to-add-a-solution)
-- [Progress Tracking](#progress-tracking)
-- [Coding Style & Best Practices](#coding-style--best-practices)
-- [CI / Automation](#ci--automation)
+- [Java version & build tools](#java-version--build-tools)
+- [How to run a solution](#how-to-run-a-solution)
+- [Template / Example](#template--example)
+- [Adding a new solution](#adding-a-new-solution)
+- [Testing](#testing)
+- [Tips & utilities](#tips--utilities)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
-## Repository Structure
+## About
+This repository stores my LeetCode problem solutions implemented in Java. Each solution focuses on clarity and correctness, with references to the problem number, title, difficulty, and relevant tags (e.g., `tree`, `dp`, `graph`, `two-pointers`).
 
-Organize solutions by problem number and topic (optional). Example layout:
+## Repository structure
+A suggested structure — feel free to adapt:
 
-- problems/
-  - 0001-two-sum/
-    - solution.py
-    - solution.cpp
-    - solution.java
-    - README.md         # problem statement summary, complexity, notes
-    - tests/
-      - test_0001.py
-  - arrays/
-    - 0027-remove-element/
-      - solution.py
-      - README.md
-- utils/                # helper libs used across solutions (optional)
-- scripts/              # helper scripts (run tests, format code, generate index)
+- /problems
+  - /0001_Two_Sum
+    - Solution.java
+    - README.md (optional: explanation + complexity)
+    - input.txt (optional: sample input)
+  - /0002_Add_Two_Numbers
+- /common (shared helper classes, e.g., ListNode, TreeNode, Utils)
+- /tests (JUnit tests or sample runners)
 - README.md
-- CONTRIBUTING.md
 
-Recommended path formats:
-- problems/<problem-number>-<slug>/...
-- optional topic folders: problems/arrays/, problems/dynamic-programming/
+Alternative (single-package structure):
+- src/main/java/com/yourname/leetcode/... (organized by problem id or topic)
+- src/test/java/... (unit tests)
 
 ## Conventions
+- Directory name format: {zero-padded-id}_{Problem_Title_With_Underscores}
+  - Example: `0001_Two_Sum`
+- Class / File name: `Solution.java` inside each problem folder (or `Problem0001_TwoSum.java` if you prefer unique filenames)
+- Package: use a consistent package like `com.sujit1997.leetcode.problems.id0001`
+- Include problem metadata at the top of each file in a comment:
+  - LeetCode link, problem id, title, difficulty, tags
+  - Time & space complexity
+- Use Java 11+ (adjust if you use a different LTS)
 
-Use consistent filenames and metadata inside each problem folder.
+## Java version & build tools
+Recommended:
+- JDK 11 or later
+- Build tools (optional):
+  - Maven:
+    - Add standard Maven layout and dependencies (JUnit 5)
+  - Gradle:
+    - Use Gradle Kotlin/Groovy DSL with JUnit 5
 
-Example solution header (Python):
-```python
-# LeetCode 1 - Two Sum
-# https://leetcode.com/problems/two-sum/
-# Difficulty: Easy
-# Tags: Array, Hash Table
-# Time Complexity: O(n)
-# Space Complexity: O(n)
-# Author: <your-name> (github: @username)
+If you don't use a build tool, plain `javac` / `java` is fine for single-file runs.
+
+## How to run a solution
+
+1. Using javac/java (single file):
+   - Compile: javac Solution.java
+   - Run: java Solution
+
+   If your solution contains a `main` method that reads from standard input or runs sample test calls.
+
+2. Using Maven:
+   - mvn test (for running tests)
+   - mvn compile && mvn exec:java -Dexec.mainClass="com.sujit1997.leetcode.problems._0001.Solution"
+
+3. Using an IDE:
+   - Import as a Maven/Gradle project or simple Java project and run the `main` method or unit tests.
+
+## Template / Example
+Here is a minimal file header and class template to copy into each solution:
+
+```java
+/*
+ LeetCode Problem: #0001 Two Sum
+ Link: https://leetcode.com/problems/two-sum/
+ Difficulty: Easy
+ Tags: array, hash-table
+ Time: O(n)
+ Space: O(n)
+*/
+
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // Implementation
+    }
+
+    // Optional main for quick manual testing
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        int[] res = s.twoSum(new int[]{2,7,11,15}, 9);
+        System.out.println(Arrays.toString(res)); // [0,1]
+    }
+}
 ```
 
-File naming:
-- solution.py / solution.cpp / Solution.java (language-idiomatic)
-- tests: test_<problem-number>.py for Python pytest
+## Adding a new solution
+1. Create a new folder under `problems/` named with the problem id and title: `0123_Best_Time_to_Buy_and_Sell_Stock_III`.
+2. Add `Solution.java` containing the solution and a brief explanation in comments.
+3. Optionally add `README.md` in that folder with:
+   - Short explanation of the approach
+   - Complexity analysis
+   - Links to references
+4. Add unit tests (recommended) under `/tests` or `src/test/java`.
 
-Include a short README.md inside each problem folder with:
-- problem link
-- brief description
-- approach summary
-- complexity analysis
-- references (if any)
+## Testing
+- Use JUnit 5 for unit tests:
+  - Example test class: `Problem0001Test`
+  - Run with `mvn test` or from your IDE.
+- For quick checks, include a `main` method in `Solution.java` that runs a few examples and prints results.
 
-## How to Run / Test
-
-General instructions — adapt per language.
-
-Python (recommended):
-- Use virtualenv / venv
-- Install test dependencies (if any):
-  - pip install -r requirements.txt
-- Run pytest for all tests:
-  - pytest -q
-
-Example:
-```bash
-python -m venv .venv
-source .venv/bin/activate        # macOS / Linux
-.\.venv\Scripts\activate         # Windows
-pip install -r requirements.txt
-pytest tests/ -q
-```
-
-C++:
-- Use your preferred build system (g++, CMake). Example:
-```bash
-g++ -std=c++17 solution.cpp -O2 -o solution
-./solution
-```
-
-Java:
-- Use Maven/Gradle or javac:
-```bash
-javac Solution.java
-java Solution
-```
-
-Scripts folder can include helper commands like:
-- scripts/run_all_python_tests.sh
-- scripts/generate_index.py
-
-## How to Add a Solution
-
-1. Fork the repo and create a branch: `feat/leetcode-<num>-<slug>`
-2. Create folder `problems/<num>-<slug>/`
-3. Add:
-   - solution.(py|cpp|java)
-   - README.md with problem link, approach, complexity
-   - tests/ (optional, preferred)
-4. Run tests locally
-5. Open a PR with a clear title: `Add LeetCode <num> - <Title> (<Language>)`
-6. Fill PR description with approach and complexity
-
-PR checklist:
-- [ ] Solution compiles / runs
-- [ ] Tests added (if applicable)
-- [ ] README contains link and complexity
-- [ ] Code follows style guide
-
-## Progress Tracking
-
-Maintain a table or JSON in the repo root (e.g., PROGRESS.md or progress.json). Example PROGRESS.md snippet:
-
-| Problem | Title | Langs | Status | Notes |
-|---------|-------|-------|--------|-------|
-| 1 | Two Sum | py, cpp | done | Optimized hash map O(n) |
-
-You can also add GitHub project boards or use issues to track "to-solve" / "in-progress" / "done".
-
-## Coding Style & Best Practices
-
-- Keep solutions idiomatic for each language.
-- Prefer readability over golfed solutions — include explanatory comments.
-- Explain non-obvious steps in the problem README.
-- Limit global state; write pure functions where possible (easier to test).
-- Document time and space complexity for each solution.
-
-Linting & formatting:
-- Python: black + flake8
-- C++: clang-format
-- Java: google-java-format
-
-## CI / Automation
-
-Suggested GitHub Actions workflow:
-- Run on push/PR
-- For Python: setup Python, install dependencies, run pytest
-- For C++: compile and run basic tests
-- Run linters (optional)
-
-Example workflows can be placed in .github/workflows/ci.yml
+## Tips & utilities
+- Keep common data-structure helpers in `/common`:
+  - `ListNode.java`, `TreeNode.java`, `Utils.java` (print helpers, converters)
+- Tag problems by difficulty and topics in the folder README or in a master index file (e.g., `INDEX.md`)
+- Consider adding a cumulative progress/scoreboard (CSV or markdown) to track solved problems and dates.
 
 ## Contributing
-
-Please see CONTRIBUTING.md for detailed instructions. Short summary:
-- Follow repository conventions
-- Add tests and README for the problem
-- Make small, focused PRs
-- Be respectful and provide helpful PR descriptions
-
-If you want a personal practice plan (e.g., daily streak), open an issue and label it discussion.
+This is a personal repository, but if you want to contribute:
+- Fork and create a PR
+- Follow the repository conventions (naming, metadata)
+- Include tests and a short explanation
+- Keep implementations idiomatic and well-commented
 
 ## License
-
-This repository is licensed under the MIT License. See LICENSE for details.
-
-## Contact
-
-Maintained by sujit1997 (GitHub: @sujit1997). Open issues or PRs for suggestions, corrections, or improvements.
+Choose a license (e.g., MIT) and add a LICENSE file if you want to make this repo open-source.
 
 ---
 
-Happy coding! Make sure to include the original LeetCode problem link in each problem folder README to respect problem statements and references.
+Happy coding — and good luck on your LeetCode journey! If you want, I can:
+- Generate a starter project with Maven/Gradle,
+- Produce a `Solution.java` template you can paste,
+- Create an `INDEX.md` to track progress. Tell me which you'd like next.
